@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blush & Bloom Boutique - Premium Ladies Fashion</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Loading Spinner */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #ec4899;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-overlay.hidden {
+            display: none;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #ec4899;
+        }
+
+        .cart-btn {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cart-count {
+            background: #fff;
+            color: #ec4899;
+            border-radius: 50%;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+        }
+
+        .hero-content {
+            color: white;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-btn:hover {
+            background: white;
+            color: #ec4899;
+            transform: translateY(-2px);
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .text-white {
+            color: white !important;
+            -webkit-text-fill-color: white !important;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: #333;
+            border: 2px solid #ec4899;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .favorite-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .favorite-btn i {
+            color: #ec4899;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: #ec4899;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+            color: #333;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ec4899;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: #ec4899;
+            font-weight: 600;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            background: #f3f4f6;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .quantity {
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-item-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #128c7e;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 100%);
+        }
+
+        .review-form-container {
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-form-container h3 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .review-form input:focus,
+        .review-form textarea:focus {
+            outline: none;
+            border-color: #ec4899;
+        }
+
+        .rating-input {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .rating-input label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .stars i {
+            color: #d1d5db;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .stars i:hover,
+        .stars i.active {
+            color: #fbbf24;
+        }
+
+        .submit-review-btn {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-review-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .review-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .review-rating i {
+            color: #fbbf24;
+        }
+
+        .review-comment {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3,
+        .contact-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item i {
+            width: 20px;
+            font-size: 1.2rem;
+        }
+
+        .store-hours {
+            margin-top: 2rem;
+        }
+
+        .store-hours h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #666;
+        }
+
+        .send-message-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .send-message-btn:hover {
+            background: white;
+            color: #ec4899;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #d1d5db;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ec4899;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 2000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <h1 class="logo">
+                    <i class="fas fa-crown"></i>
+                    Blush & Bloom Boutique
+                </h1>
+                <nav class="nav-menu">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#products" class="nav-link">Products</a>
+                    <a href="#reviews" class="nav-link">Reviews</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+                <button id="cartBtn" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    Cart <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Elegance Redefined</h2>
+            <p class="hero-subtitle">Discover the latest trends in women's fashion</p>
+            <button class="cta-btn" onclick="scrollToSection('products')">
+                <i class="fas fa-shopping-bag"></i>
+                Shop Now
+            </button>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <h2 class="section-title">Our Premium Collection</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="sarees">Sarees</button>
+                <button class="filter-btn" data-filter="kurtis">Kurtis</button>
+                <button class="filter-btn" data-filter="lehengas">Lehengas</button>
+                <button class="filter-btn" data-filter="accessories">Accessories</button>
+            </div>
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button id="closeCart" class="close-cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <div class="empty-cart">
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: ₹<span id="cartTotal">0</span></strong>
+            </div>
+            <button id="checkoutBtn" class="checkout-btn">
+                <i class="fab fa-whatsapp"></i>
+                Place Order via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">Customer Reviews</h2>
+            
+            <!-- Add Review Form -->
+            <div class="review-form-container">
+                <h3>Write a Review</h3>
+                <div class="review-form">
+                    <div class="form-row">
+                        <input type="text" id="reviewName" placeholder="Your Name">
+                        <div class="rating-input">
+                            <label>Rating:</label>
+                            <div class="stars" id="ratingStars">
+                                <i class="fas fa-star" data-rating="1"></i>
+                                <i class="fas fa-star" data-rating="2"></i>
+                                <i class="fas fa-star" data-rating="3"></i>
+                                <i class="fas fa-star" data-rating="4"></i>
+                                <i class="fas fa-star" data-rating="5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea id="reviewComment" placeholder="Share your experience..." rows="3"></textarea>
+                    <button id="submitReview" class="submit-review-btn">Submit Review</button>
+                </div>
+            </div>
+
+            <!-- Reviews Display -->
+            <div id="reviewsContainer" class="reviews-grid">
+                <!-- Reviews will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title text-white">Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 98765 43210</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@blushandbloomboutique.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Fashion Street, Mumbai, Maharashtra</span>
+                    </div>
+                    
+                    <div class="store-hours">
+                        <h4>Store Hours</h4>
+                        <p>Monday - Saturday: 10:00 AM - 8:00 PM</p>
+                        <p>Sunday: 11:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <input type="text" id="contactName" placeholder="Your Name">
+                    <input type="email" id="contactEmail" placeholder="Your Email">
+                    <textarea id="contactMessage" placeholder="Your Message" rows="5"></textarea>
+                    <button id="sendMessage" class="send-message-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        Send via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <h3 class="footer-logo">
+                    <i class="fas fa-crown"></i>
+                    Blush & Bloom Boutique
+                </h3>
+                <p>Your destination for elegant and trendy fashion</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#shipping">Shipping Info</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Blush & Bloom Boutique. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script>
+        // Configuration
+        const WHATSAPP_NUMBER = '919876543210'; // Replace with your WhatsApp number
+        const BOUTIQUE_NAME = 'Blush & Bloom Boutique';
+
+        // Global Variables
+        let cart = [];
+        let currentRating = 5;
+        let reviews = [
+            { id: 1, name: "Priya Sharma", rating: 5, comment: "Beautiful collection! The quality is amazing and fits perfectly." },
+            { id: 2, name: "Anita Gupta", rating: 4, comment: "Love the designs. Fast delivery and great customer service." },
+            { id: 3, name: "Meera Patel", rating: 5, comment: "Stunning sarees! I get so many compliments. Highly recommended!" },
+            { id: 4, name: "Kavya Singh", rating: 5, comment: "Excellent quality and beautiful designs. My go-to boutique!" },
+            { id: 5, name: "Ritu Jain", rating: 4, comment: "Great collection of ethnic wear. Loved the lehenga I bought!" },
+            { id: 6, name: "Sneha Reddy", rating: 5, comment: "Amazing customer service and gorgeous outfits. Highly satisfied!" }
+        ];
+
+        // Product Data
+        const products = [
+            {
+                id: 1,
+                name: "Elegant Silk Saree",
+                price: 3999,
+                image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Pure silk saree with intricate embroidery work"
+            },
+            {
+                 id: 2,
+                 name: "Banarasi Wedding Saree",
+                 price: 7999,
+                 image: "https://images.unsplash.com/photo-1602810319015-d63a57f61e7d?w=400&h=500&fit=crop",
+                 category: "sarees",
+                description : "Royal Banarasi saree with zari weaving, perfect for weddings"
+            },
+            {
+                id: 3,
+                name: "Cotton Handloom Saree",
+                price: 1499,
+                image: "https://images.unsplash.com/photo-1613553474176-2bb18b87140c?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Lightweight handloom cotton saree for daily wear"
+            },
+            {
+                id: 4,
+                name: "Designer Georgette Saree",
+                price: 4999,
+                image: "https://images.unsplash.com/photo-1617033819351-9d3a3a3b9d2e?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Georgette saree with stone work for parties"
+            },
+            {
+                id: 5,
+                name: "Kanchipuram Silk Saree",
+                price: 10999,
+                image: "https://images.unsplash.com/photo-1617033836658-9b7d98efb725?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Traditional Kanchipuram silk saree with gold zari border"
+            },
+            {
+                id: 6,
+                name: "Linen Saree",
+                price: 2599,
+                image: "https://images.unsplash.com/photo-1589634836489-1e8036f2fa14?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Pastel shade linen saree with digital floral prints"
+            },
+            {
+                id: 7,
+                name: "Chiffon Saree",
+                price: 1899,
+                image: "https://images.unsplash.com/photo-1602810318383-e6e8f3d53d77?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Light chiffon saree for casual and office wear"
+            },
+            {
+                id: 8,
+                name: "Paithani Saree",
+                price: 8999,
+                image: "https://images.unsplash.com/photo-1620799142345-5ff94c3aaee4?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Maharashtrian Paithani saree with peacock pallu design"
+            },
+            {
+                id: 9,
+                name: "Net Embroidered Saree",
+                price: 3799,
+                image: "https://images.unsplash.com/photo-1620799140408-9b3b9c7c39f2?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Stylish net saree with embroidery and sequins"
+            },
+            {
+                id: 10,
+                name: "Tussar Silk Saree",
+                price: 5699,
+                image: "https://images.unsplash.com/photo-1613553370855-8e5e22fc52d8?w=400&h=500&fit=crop",
+                category: "sarees",
+                description: "Elegant Tussar silk saree with contrast border"
+            },
+            {
+                id: 1,
+                name: "Designer Kurti Set",
+                price: 1899,
+                image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Cotton kurti with palazzo pants and dupatta"
+            },            {
+                id: 2,
+                name: "Floral Printed Kurti",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1613553370855-8e5e22fc52d8?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Lightweight floral kurti with 3/4th sleeves"
+            },
+            {
+                id: 3,
+                name: "Straight Cotton Kurti",
+                price: 999,
+                image: "https://images.unsplash.com/photo-1602810318383-e6e8f3d53d77?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Simple straight cut cotton kurti for daily wear"
+            },
+            {
+                id: 4,
+                name: "Anarkali Kurti",
+                price: 2299,
+                image: "https://images.unsplash.com/photo-1617033819351-9d3a3a3b9d2e?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Flowy Anarkali kurti with printed dupatta"
+            },
+            {
+                id: 5,
+                name: "Embroidered Kurti",
+                price: 1699,
+                image: "https://images.unsplash.com/photo-1620799140408-9b3b9c7c39f2?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Stylish embroidered kurti with round neck"
+            },
+            {
+                id: 6,
+                name: "Party Wear Kurti",
+                price: 2599,
+                image: "https://images.unsplash.com/photo-1617033836658-9b7d98efb725?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Designer kurti with sequin work for parties"
+            },
+            {
+                id: 7,
+                name: "Front Slit Kurti",
+                price: 1499,
+                image: "https://images.unsplash.com/photo-1620799142345-5ff94c3aaee4?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Trendy front-slit kurti paired with leggings"
+            },
+            {
+                id: 8,
+                name: "Indo-Western Kurti",
+                price: 1999,
+                image: "https://images.unsplash.com/photo-1613553474176-2bb18b87140c?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Fusion style kurti with modern prints"
+            },
+            {
+                id: 9,
+                name: "Casual Summer Dress",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Light and breezy cotton dress for daily wear"
+            },
+            {
+                id: 10,
+                name: "Embroidered Palazzo Set",
+                price: 2199,
+                image: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?w=400&h=500&fit=crop",
+                category: "kurtis",
+                description: "Trendy palazzo set with beautiful embroidery"
+            },
+            {
+                id: 1,
+                name: "Wedding Jewellery Set",
+                price: 4999,
+                image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Elegant gold-plated jewellery set for weddings"
+            },
+            {
+                id: 2,
+                name: "Formal Blazer",
+                price: 3499,
+                image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Professional blazer for office and meetings"
+            },
+             {
+                id: 3,
+                name: "Designer Handbag",
+                price: 2999,
+                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Trendy leather handbag with spacious compartments"
+            },
+            {
+                id: 4,
+                name: "Gold Plated Bangles",
+                price: 1799,
+                image: "https://images.unsplash.com/photo-1617033829231-5cb918f0a9d8?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Set of 4 intricately designed gold-plated bangles"
+            },
+            {
+                id: 5,
+                name: "Stylish Sunglasses",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "UV-protected oversized sunglasses for women"
+            },
+            {
+                id: 6,
+                name: "Embroidered Clutch",
+                price: 1499,
+                image: "https://images.unsplash.com/photo-1603570417035-14f7f03c2a77?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Elegant hand-embroidered clutch bag for parties"
+            },
+            {
+                id: 7,
+                name: "Silver Anklet",
+                price: 899,
+                image: "https://images.unsplash.com/photo-1603354350317-6f7d9bfb87d3?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Beautiful silver anklet with ghungroo charms"
+            },
+            {
+                id: 8,
+                name: "Trendy Belt",
+                price: 799,
+                image: "https://images.unsplash.com/photo-1617033839291-bf64c8f3a22d?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Adjustable leather belt with metallic buckle"
+            },
+            {
+                id: 9,
+                name: "Bridal Hair Accessories",
+                price: 1599,
+                image: "https://images.unsplash.com/photo-1620012258332-1a6b7e9b95a2?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Golden bridal hair pins and clips set"
+            },
+            {
+                id: 10,
+                name: "Wrist Watch",
+                price: 3499,
+                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=500&fit=crop",
+                category: "accessories",
+                description: "Luxury wrist watch with stainless steel strap"
+            },
+            {
+                id: 1,
+                name: "Gold Plated Bangles",
+                price: 1599,
+                image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQkHbl8C3ToZCy1M2traV-XJtogWojuBPn9XYuv3a774dih-B3If8FJdnXb-MzNOKXAIAovHyOL8B_QyI8xJVfremj5zFO8psStBhvuOSpvh_Hd1IlgS3MlrQ",
+                category: "bangles",
+                description: "Traditional gold-plated bangles with intricate design"
+            },
+            {
+                id: 2,
+                name: "Silver Oxidised Bangles",
+                price: 899,
+                image: "https://images.unsplash.com/photo-1617032874386-89e4b6e6aef0?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Stylish oxidised bangles for casual and festive wear"
+            },
+            {
+                id: 3,
+                name: "Pearl Studded Bangles",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1522336572468-97b06e8ef143?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Elegant pearl-studded bangles with premium finish"
+            },
+            {
+                id: 4,
+                name: "Stone Work Bangles",
+                price: 1799,
+                image: "https://images.unsplash.com/photo-1589739908615-8f8127781bde?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Designer bangles with multi-color stone embellishments"
+            },
+            {
+                id: 5,
+                name: "Meenakari Bangles",
+                price: 1399,
+                image: "https://images.unsplash.com/photo-1616400619175-5d4b93cf9f9c?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Traditional meenakari bangles with artistic finish"
+            },
+            {
+                id: 6,
+                name: "Diamond Finish Bangles",
+                price: 2499,
+                image: "https://images.unsplash.com/photo-1611599532225-b63464c4a0a7?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Premium bangles with diamond-like studded stones"
+            },
+            {
+                id: 7,
+                name: "Antique Brass Bangles",
+                price: 799,
+                image: "https://images.unsplash.com/photo-1609943240509-5b9a7e51cd86?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Vintage brass finish bangles with antique style"
+            },
+            {
+                id: 8,
+                name: "Kundan Bridal Bangles",
+                price: 2999,
+                image: "https://images.unsplash.com/photo-1605810230434-7639a5da54e1?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Heavy kundan bangles perfect for bridal wear"
+            },
+            {
+                id: 9,
+                name: "Colorful Glass Bangles",
+                price: 599,
+                image: "https://images.unsplash.com/photo-1609943240022-8b75f1e1f9e6?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Set of colorful glass bangles for daily and festive use"
+            },
+            {
+                id: 10,
+                name: "Handcrafted Wooden Bangles",
+                price: 699,
+                image: "https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?w=400&h=500&fit=crop",
+                category: "bangles",
+                description: "Unique wooden handcrafted bangles with ethnic patterns"
+            }
+
+        ];
+
+        // DOM Elements
+        const loadingOverlay = document.getElementById('loading');
+        const productsGrid = document.getElementById('productsGrid');
+        const cartBtn = document.getElementById('cartBtn');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCartBtn = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const reviewsContainer = document.getElementById('reviewsContainer');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            renderProducts(products);
+            renderReviews();
+            hideLoading();
+        });
+
+        // Event Listeners Setup
+        function setupEventListeners() {
+            // Cart functionality
+            cartBtn.addEventListener('click', toggleCart);
+            closeCartBtn.addEventListener('click', closeCart);
+            checkoutBtn.addEventListener('click', handleCheckout);
+            
+            // Filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', handleFilter);
+            });
+            
+            // Rating stars
+            const ratingStars = document.querySelectorAll('#ratingStars i');
+            ratingStars.forEach(star => {
+                star.addEventListener('click', handleRatingClick);
+                star.addEventListener('mouseover', handleRatingHover);
+            });
+            
+            document.getElementById('ratingStars').addEventListener('mouseleave', resetRatingDisplay);
+            
+            // Review form
+            document.getElementById('submitReview').addEventListener('click', handleSubmitReview);
+            
+            // Contact form
+            document.getElementById('sendMessage').addEventListener('click', handleSendMessage);
+            
+            // Smooth scroll for navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', handleNavClick);
+            });
+            
+            // Close cart when clicking outside
+            document.addEventListener('click', function(e) {
+                if (cartSidebar.classList.contains('active') && 
+                    !cartSidebar.contains(e.target) && 
+                    !cartBtn.contains(e.target)) {
+                    closeCart();
+                }
+            });
+
+            // Initialize rating display
+            updateRatingDisplay(currentRating);
+        }
+
+        // Product Rendering
+        function renderProducts(productsToRender) {
+            productsGrid.innerHTML = '';
+            
+            productsToRender.forEach((product, index) => {
+                const productCard = createProductCard(product);
+                productCard.style.animationDelay = `${index * 0.1}s`;
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card fade-in-up';
+            card.setAttribute('data-category', product.category);
+            
+            card.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
+                    <button class="favorite-btn" onclick="toggleFavorite(${product.id}, this)">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">${product.category.replace('_', ' ').toUpperCase()}</span>
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹${product.price.toLocaleString()}</span>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Cart Functionality
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            updateCartUI();
+            showToast(`${product.name} added to cart!`);
+        }
+
+        function removeFromCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+            showToast(`${product.name} removed from cart`);
+        }
+
+        function updateQuantity(productId, newQuantity) {
+            if (newQuantity === 0) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = newQuantity;
+                updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Update cart count
+            document.querySelector('.cart-count').textContent = totalItems;
+            
+            // Update cart total
+            cartTotal.textContent = totalPrice.toLocaleString();
+            
+            // Render cart items
+            renderCartItems();
+        }
+
+        function renderCartItems() {
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart"><p>Your cart is empty</p></div>';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-info">
+                        <h4 class="cart-item-name">${item.name}</h4>
+                        <p class="cart-item-price">₹${item.price.toLocaleString()}</p>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="remove-item-btn" onclick="removeFromCart(${item.id})" title="Remove item">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            cartSidebar.classList.toggle('active');
+        }
+
+        function closeCart() {
+            cartSidebar.classList.remove('active');
+        }
+
+        function handleCheckout() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty!', 'error');
+                return;
+            }
+            
+            const orderDetails = cart.map(item => 
+                `${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toLocaleString()}`
+            ).join('\n');
+            
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const message = `Hello ${BOUTIQUE_NAME},
+
+I want to order these items:
+
+${orderDetails}
+
+Total Amount: ₹${totalAmount.toLocaleString()}
+
+Please confirm my order. Thank you!`;
+
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+            
+            // Clear cart after order
+            cart = [];
+            updateCartUI();
+            closeCart();
+            showToast('Order placed successfully! Check WhatsApp to complete.');
+        }
+
+        // Filter Functionality
+        function handleFilter(e) {
+            const filterValue = e.target.getAttribute('data-filter');
+            
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            // Filter products
+            const filteredProducts = filterValue === 'all' 
+                ? products 
+                : products.filter(product => product.category === filterValue);
+            
+            renderProducts(filteredProducts);
+        }
+
+        // Review Functionality
+        function handleRatingClick(e) {
+            const rating = parseInt(e.target.getAttribute('data-rating'));
+            currentRating = rating;
+            updateRatingDisplay(rating);
+        }
+
+        function handleRatingHover(e) {
+            const rating = parseInt(e.target.getAttribute('data-rating'));
+            updateRatingDisplay(rating);
+        }
+
+        function resetRatingDisplay() {
+            updateRatingDisplay(currentRating);
+        }
+
+        function updateRatingDisplay(rating) {
+            const stars = document.querySelectorAll('#ratingStars i');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function handleSubmitReview() {
+            const name = document.getElementById('reviewName').value.trim();
+            const comment = document.getElementById('reviewComment').value.trim();
+            
+            if (!name || !comment) {
+                showToast('Please fill in your name and comment', 'error');
+                return;
+            }
+            
+            const newReview = {
+                id: reviews.length + 1,
+                name: name,
+                rating: currentRating,
+                comment: comment
+            };
+            
+            // Add to reviews array
+            reviews.unshift(newReview);
+            
+            // Clear form
+            document.getElementById('reviewName').value = '';
+            document.getElementById('reviewComment').value = '';
+            currentRating = 5;
+            updateRatingDisplay(5);
+            
+            // Re-render reviews
+            renderReviews();
+            showToast('Review submitted successfully!');
+        }
+
+        function renderReviews() {
+            reviewsContainer.innerHTML = reviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <h4 class="review-name">${review.name}</h4>
+                        <div class="review-rating">
+                            ${Array(5).fill().map((_, i) => 
+                                `<i class="fas fa-star" style="color: ${i < review.rating ? '#fbbf24' : '#d1d5db'}"></i>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    <p class="review-comment">${review.comment}</p>
+                </div>
+            `).join('');
+        }
+
+        // Contact Functionality
+        function handleSendMessage() {
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            
+            if (!name || !email || !message) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showToast('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            const whatsappMessage = `Contact Form Submission:
+
+Name: ${name}
+Email: ${email}
+Message: ${message}
+
+Sent from ${BOUTIQUE_NAME} website`;
+            
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappURL, '_blank');
+            
+            // Clear form
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMessage').value = '';
+            
+            showToast('Message sent via WhatsApp successfully!');
+        }
+
+        // Utility Functions
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = `toast ${type === 'error' ? 'error' : 'success'} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function hideLoading() {
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+            }, 1000);
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function handleNavClick(e) {
+            e.preventDefault();
+            const targetId = e.target.getAttribute('href').substring(1);
+            scrollToSection(targetId);
+        }
+
+        function toggleFavorite(productId, buttonElement) {
+            const icon = buttonElement.querySelector('i');
+            
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                showToast('Added to favorites!');
+                
+                // Save to localStorage
+                let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                if (!favorites.includes(productId)) {
+                    favorites.push(productId);
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                }
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                showToast('Removed from favorites');
+                
+                // Remove from localStorage
+                let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                favorites = favorites.filter(id => id !== productId);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+            }
+        }
+
+        // Load favorites on page load
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            favorites.forEach(productId => {
+                const heartIcon = document.querySelector(`button[onclick="toggleFavorite(${productId}, this)"] i`);
+                if (heartIcon) {
+                    heartIcon.classList.remove('far');
+                    heartIcon.classList.add('fas');
+                }
+            });
+        }
+
+        // Load cart from localStorage
+        function loadCartFromStorage() {
+            const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart = savedCart;
+            updateCartUI();
+        }
+
+        // Save cart to localStorage
+        function saveCartToStorage() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Update cart functions to save to localStorage
+        const originalAddToCart = addToCart;
+        addToCart = function(productId) {
+            originalAddToCart(productId);
+            saveCartToStorage();
+        };
+
+        const originalRemoveFromCart = removeFromCart;
+        removeFromCart = function(productId) {
+            originalRemoveFromCart(productId);
+            saveCartToStorage();
+        };
+
+        const originalUpdateQuantity = updateQuantity;
+        updateQuantity = function(productId, newQuantity) {
+            originalUpdateQuantity(productId, newQuantity);
+            saveCartToStorage();
+        };
+
+        // Enhanced initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            renderProducts(products);
+            renderReviews();
+            loadCartFromStorage();
+            setTimeout(() => {
+                loadFavorites();
+                hideLoading();
+            }, 1000);
+        });
+
+        // Search functionality (bonus feature)
+        function searchProducts(query) {
+            const filtered = products.filter(product => 
+                product.name.toLowerCase().includes(query.toLowerCase()) ||
+                product.description.toLowerCase().includes(query.toLowerCase()) ||
+                product.category.toLowerCase().includes(query.toLowerCase())
+            );
+            renderProducts(filtered);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Press 'C' to toggle cart
+            if (e.key.toLowerCase() === 'c' && !e.target.matches('input, textarea')) {
+                toggleCart();
+            }
+            // Press 'Escape' to close cart
+            if (e.key === 'Escape' && cartSidebar.classList.contains('active')) {
+                closeCart();
+            }
+        });
+
+        // Analytics tracking (mock function - replace with actual analytics)
+        function trackEvent(eventName, data) {
+            console.log(`Analytics: ${eventName}`, data);
+            // Replace with actual analytics service like Google Analytics
+        }
+
+        // Track add to cart events
+        const originalTrackAddToCart = addToCart;
+        addToCart = function(productId) {
+            const product = products.find(p => p.id === productId);
+            trackEvent('add_to_cart', {
+                product_id: productId,
+                product_name: product.name,
+                product_price: product.price
+            });
+            originalTrackAddToCart(productId);
+        };
+    </script>
+</body>
+</html>
